@@ -1,9 +1,15 @@
 import React, { Component } from "react"
 import { Link } from "react-router-dom"
+//connect to our store using {connect}
 import { connect } from "react-redux"
+//import the action creators relevant to the state that will be affected by this component
+
 import { updateLoanType, updatePropertyType } from "../../ducks/reducer"
 class WizardOne extends Component {
   render() {
+    //destructuring to make it easier to write. all our methods inside class components will have a this.props suffix since they are
+    //held in our reducer and connected to the component
+    //if it is a functional component it will just be props.whatever instead of this.props.whatever
     const { updateLoanType, updatePropertyType } = this.props
     return (
       <div className='parent-div'>
@@ -41,6 +47,8 @@ class WizardOne extends Component {
     )
   }
 }
+//this method will be in every single component. We will need to pass in state and return the state that is
+//being affected by this component
 const mapStateToProps = state => {
   const { loanType, propertyType } = state
   return {
@@ -48,6 +56,8 @@ const mapStateToProps = state => {
     propertyType
   }
 }
+//include connect in our export, invoking connect with mapStateToProps as an argument, the second argument being the methods used in the component
+
 export default connect(
   mapStateToProps,
   { updateLoanType, updatePropertyType }

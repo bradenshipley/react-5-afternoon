@@ -1,4 +1,6 @@
 //initial state
+//holds initial state for entire application
+
 const initialState = {
   loanType: "Home Purchase",
   propertyType: "Single Family Home",
@@ -18,6 +20,8 @@ const initialState = {
   email: ""
 }
 //action constants
+//to help diagnose errors. If we have these, and misspell something further down in our action creators,
+// it will kick back an error saying "'whatever' is undefined"
 const UPDATE_LOAN_TYPE = "UPDATE_LOAN_TYPE"
 const UPDATE_PROPERTY_TYPE = "UPDATE_PROPERTY_TYPE"
 const UPDATE_CITY = "UPDATE_CITY"
@@ -34,7 +38,7 @@ const UPDATE_ADDRESS_THREE = "UPDATE_ADDRESS_THREE"
 const UPDATE_FIRST_NAME = "UPDATE_FIRST_NAME"
 const UPDATE_LAST_NAME = "UPDATE_LAST_NAME"
 const UPDATE_EMAIL = "UPDATE_EMAIL"
-//action creators
+//action creators. 
 export const updateLoanType = loanType => {
   return {
     type: UPDATE_LOAN_TYPE,
@@ -132,8 +136,17 @@ export const updateEmail = email => {
   }
 }
 //reducer function
+
 function reducer(state = initialState, action) {
   switch (action.type) {
+    /* 
+    could write the return as Object.assign or as 
+    return {
+      ...state,
+      loanType: action.payload.data
+    }
+    both do the same
+    */
     case UPDATE_LOAN_TYPE: {
       return Object.assign({}, state, { loanType: action.payload })
     }
@@ -182,6 +195,7 @@ function reducer(state = initialState, action) {
     case UPDATE_EMAIL: {
       return Object.assign({}, state, { email: action.payload })
     }
+    //every switch case needs a default. ours will just return state (if there is no action.type recieved)
     default:
       return state
   }
